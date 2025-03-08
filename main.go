@@ -2,12 +2,9 @@ package main
 
 import (
 	"bufio"
-	"bytes"
-	"crypto/tls"
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
