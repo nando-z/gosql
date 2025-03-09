@@ -32,8 +32,6 @@ A fast and concurrent SQL Injection vulnerability scanner written in Go. This to
      go build -o gosql
      ./gosql
     ```
- 
-3. Using :
 
     ```bash
     ./gosql -h
