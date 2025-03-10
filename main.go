@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -82,9 +83,13 @@ func injectAndCheck(u string, depth int, outputFile string, lock *sync.Mutex, wg
 			if err != nil {
 				continue
 			}
-			defer resp.Body.Close()
 
-			body, _ := ioutil.ReadAll(resp.Body)
+			body, err := ioutil.ReadAll(resp.Body)
+			resp.Body.Close()
+			if err != nil {
+				continue
+			}
+
 			if errMsg := checkSQLError(string(body)); errMsg != "" {
 				result := Result{
 					URL:       u,
@@ -151,7 +156,7 @@ func main() {
 	var results []Result
 
 	if *output != "" {
-		ioutil.WriteFile(*output, []byte("[\n"), 0644)
+		os.WriteFile(*output, []byte("[\n"), 0644)
 	}
 
 	startTime := time.Now()
@@ -170,7 +175,7 @@ func main() {
 			fmt.Printf("Error opening file: %s\n", err)
 			return
 		}
-		file.Seek(-2, 2)
+		file.Seek(-2, os.SEEK_END)
 		file.WriteString("\n]\n")
 		file.Close()
 	}
