@@ -37,4 +37,4 @@ A fast and concurrent SQL Injection vulnerability scanner written in Go. This to
     ./gosql -h
     ```
 #
-<center>Nando-z x Mr Dark</center>
+<center>Nando-z x dark</center>
